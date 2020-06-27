@@ -1,5 +1,4 @@
 
-import pymongo
 from pymongo import MongoClient
 import requests
 import logging
@@ -7,8 +6,8 @@ from datetime import datetime
 
 
 if __name__ == '__main__' : 
-    
-    # set logging level 
+
+    # set logging level
     logging.getLogger().setLevel(logging.INFO)
     
     # connect to mongodb
@@ -78,7 +77,7 @@ if __name__ == '__main__' :
                         
                         # save document into the collection
                         stats.insert_one(doc)
-                        logging.debug('Importing {} {} {} {}'.format(stat['id'], 
+                        logging.debug('Importing {} {} {} {}'.format(stat['id'],
                                                                   stat['userId'], 
                                                                   stat['type'].encode('utf-8').strip(),
                                                                   stat['action'].encode('utf-8').strip()))
