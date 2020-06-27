@@ -17,6 +17,9 @@ if __name__ == '__main__' :
     patients = db.patients
     # statistic collection
     stats = db.statistics
+
+    # inserted records
+    inserted = 0
     
     # get a cursor on patients
     p_cursor = patients.find(no_cursor_timeout = True)
@@ -33,7 +36,7 @@ if __name__ == '__main__' :
         while run : 
             # set counter
             counter = 0
-            # print logging infor
+            # print logging info
             logging.info('Retrieving statistics for patient with ID {} offset {}'.format(patientId, offset))
             # get patient statistics 
             p_stats = requests.get('http://tvassistdem-backend.istc.cnr.it/statistics/{}/stream/{}/records'.format(patientId, offset))
@@ -81,7 +84,8 @@ if __name__ == '__main__' :
                                                                   stat['userId'], 
                                                                   stat['type'].encode('utf-8').strip(),
                                                                   stat['action'].encode('utf-8').strip()))
-                    
+                        # new record inserted
+                        inserted += 1
                     else : 
                         
                         # statistic record already imported
@@ -97,10 +101,4 @@ if __name__ == '__main__' :
                 
     # close patient cursor
     p_cursor.close()
-
-                
-                
-    
-    
-
-    
+    logging.info('A total number of {} records have been inserted'.format(inserted))
