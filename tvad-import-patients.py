@@ -19,7 +19,7 @@ if __name__ == '__main__' :
     # check result
     if result.status_code != 200 : 
         # something went wrong
-        raise ApiError('GET /patients/2/data {}'.format(p_data.status_code))
+        raise RuntimeError('GET /patients/2/data {}'.format(result.status_code))
     
     # check patients 
     for patient in result.json() : 
@@ -29,7 +29,7 @@ if __name__ == '__main__' :
         try :
             # save document into the collection
             collection.insert_one(doc)
-            logging.info('Importing {} {} {}'.format(patient['id'], patient['name'].encode('utf-8').strip(), patient['surname'].encode('utf-8').strip()))
+            logging.info('Importing {} {} {}'.format(patient['id'], patient['name'].encode('utf-8').strip(), patient['surname'].encode('utf-8').strip()))
         
         except : 
             # document already exist, do update fields
@@ -38,7 +38,7 @@ if __name__ == '__main__' :
             
             # update database 
             collection.update_one(query, updates)
-            logging.warn('Updating {} {} {}'.format(patient['id'], patient['name'].encode('utf-8').strip(), patient['surname'].encode('utf-8').strip()))
+            logging.warn('Updating {} {} {}'.format(patient['id'], patient['name'].encode('utf-8').strip(), patient['surname'].encode('utf-8').strip()))
                     
     
     
