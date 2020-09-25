@@ -55,6 +55,8 @@ if __name__ == '__main__' :
                     "date" : datetime.utcfromtimestamp(stat['date']/1000).strftime('%Y-%m-%d %H:%M:%S'), # date field is a timestamp in milliseconds
                     "country" : stat['country'].encode('utf-8').strip(),
                     "deviceId" : stat['deviceId'],
+                    "current_app_package_name" : stat['currentAppPackageName'],
+                    "current_app_version" : stat['currentAppVersion'],
                     "info" : {
                         "action" : stat['info']['action'].encode('utf-8').strip(),
                         "additional_info" : stat['info']['additional_info'].encode('utf-8').strip()
